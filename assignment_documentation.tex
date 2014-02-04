@@ -1,0 +1,75 @@
+\documentclass[titlepage ,12pt]{article}
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+
+
+\usepackage[font=footnotesize]{caption}
+\usepackage{verbatim}
+\usepackage[section]{placeins}
+\usepackage{comment}
+%\usepackage{hyperref}
+
+% This just adds lines between paragraphs
+\usepackage[parfill]{parskip}
+
+%This allows diagrams to be added
+\usepackage{graphicx}
+
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\scriptsize\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=1
+}
+
+
+
+%opening
+\title{CS270 Assignment 1 - Ski Lifts and Pistes}
+\author{Si\^{o}n Griffiths - Sig2}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\clearpage
+
+
+\section{Introduction}
+
+\section{Un-Normalized Structures}
+\textbf{Pistes \& Lifts}(\underline{PisteName}, Grade, Length, Fall, Lifts, Open, LiftName, Type, Summit, Rise, LiftLength, Operating) \\
+(LiftName, Type, Summit, Rise, LiftLength, Operating) repeats for each lift
+ \newline
+
+\section{Normalization}
+\subsection{First Normal Form}
+\subsection{Second normal Form}
+\subsection{Third normal Form}
+
+\section{PostgreSQL Implementation}
+
+\end{document}
