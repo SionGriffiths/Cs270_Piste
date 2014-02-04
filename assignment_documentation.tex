@@ -23,26 +23,27 @@
 \usepackage{listings}
 \usepackage{color}
 
+\definecolor{dkred}{rgb}{0.6,0,0}
+\definecolor{dkblu}{rgb}{0,0,0.6}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{frame=tb,
-  language=Java,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\scriptsize\ttfamily},
-  numbers=left,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true
-  tabsize=1
-}
+\lstset{showstringspaces=false,
+		language=SQL,
+        numbers=left,
+        frame=single,
+        backgroundcolor=\color[RGB]{234,237,230},
+        numberstyle=\tiny,
+        basicstyle={\footnotesize\ttfamily\bfseries},
+        frameround=tttt,
+        breaklines=true,
+        keywordstyle=\color{mauve},
+        commentstyle=\color[RGB]{143,89,2},
+        stringstyle=\color{dkred},
+        identifierstyle=\color[RGB]{0,0,0},
+		morekeywords={CreateMbrCache,mbr,FilterMbrWithin,MbrMinX,MbrMinY,MbrMaxX,MbrMaxY,Within,group_concat}        
+        }
 
 
 
@@ -92,6 +93,7 @@ Each piste has a unique name. The PisteName is a single, concise entry that serv
 
 
 \subsection{Functional Dependencies}
+
 PisteName \begin{math}\rightarrow\end{math} \{Grade, Length, Fall, Lifts, Open\} \\
 LiftName \begin{math}\rightarrow\end{math} \{Type, Summit, Rise, LiftLength, Operating\}
  
@@ -107,5 +109,9 @@ LiftName \begin{math}\rightarrow\end{math} \{Type, Summit, Rise, LiftLength, Ope
 \subsection{Third normal Form}
 
 \section{PostgreSQL Implementation}
+
+\begin{lstlisting}[breaklines=true]
+  SELECT username FROM members WHERE username = '$inputuser' AND user_password = '$input_password' LIMIT 1;
+\end{lstlisting}
 
 \end{document}
