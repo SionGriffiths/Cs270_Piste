@@ -61,9 +61,45 @@
 \section{Introduction}
 
 \section{Un-Normalized Structures}
-\textbf{Pistes \& Lifts}(\underline{PisteName}, Grade, Length, Fall, Lifts, Open, LiftName, Type, Summit, Rise, LiftLength, Operating) \\
+
+Studying the dataset provided in the assignment brief, I have determined the un-normalized structure of the database (along with all repeating groups) to be as follows:
+ 
+\textbf{PistesAndLifts}(\underline{PisteName}, Grade, Length, Fall, Lifts, Open, LiftName, Type, Summit, Rise, LiftLength, Operating) \\ \\
 (LiftName, Type, Summit, Rise, LiftLength, Operating) repeats for each lift
  \newline
+
+\subsection{Candidate Keys}
+The following candidate keys have been identified: 
+
+\subsubsection{Grade, Length, Fall}
+
+A composite of the Grade, Length and Fall attributes would serve to uniquely identify a piste according to the data provided in the brief. Even though a composite of Grade + Fall or Length + Fall would also appear to uniquely identify a piste I have chosen to use a composite of all three as a candidate since all three together provide a key which is more unique. \\
+The uniqueness of this composite key lies in the assumption that mountain slopes are of differing heights and gradients, and that the complexity of terrain on a mountain slope varies (Grade). \\
+This candidate has not been chosen as primary key. It is usually best to avoid the use of composite keys as primary key if possible and there's always the possibility that 2 pistes could share similar slopes such that this candidate key would not be sufficient to differentiate between them.
+
+\subsubsection{Lifts}
+
+The Lifts attribute appears to be unique to each piste according to the dataset provided in the assignment brief. Each piste is served by a unique collection of lifts or lift, this would provide sufficient information to uniquely identify a piste. \\
+This candidate key has not been chosen as primary key. Since some lifts serve a number of pistes it is possible to assume that a lift could be removed in the future, such that a number of pistes have the exact same set of lifts serving them, in this case the Lifts attribute would no longer be enough to uniquely identify a piste.
+
+\subsubsection{A composite of all attributes}
+
+Looking at the dataset, it is fairly safe to assume that the entire entry for a piste will always be unique. However, there are more suitable and concise choices available so this candidate has not been chosen as primary key.
+
+\subsubsection{PisteName}
+
+Each piste has a unique name. The PisteName is a single, concise entry that serves to uniquely identify a piste. Since this is the most concise and intuitive choice, it has been selected as the primary key for the un-normalized representation of the dataset. 
+
+
+\subsection{Functional Dependencies}
+PisteName \begin{math}\rightarrow\end{math} \{Grade, Length, Fall, Lifts, Open\} \\
+LiftName \begin{math}\rightarrow\end{math} \{Type, Summit, Rise, LiftLength, Operating\}
+ 
+
+
+
+
+
 
 \section{Normalization}
 \subsection{First Normal Form}
