@@ -93,20 +93,41 @@ Each piste has a unique name. The PisteName is a single, concise entry that serv
 
 
 \subsection{Functional Dependencies}
+The following functional dependencies have been identified: \\
 
-PisteName \begin{math}\rightarrow\end{math} \{Grade, Length, Fall, Lifts, Open\} \\
-LiftName \begin{math}\rightarrow\end{math} \{Type, Summit, Rise, LiftLength, Operating\}
+\textbf{PisteName \begin{math}\rightarrow\end{math} Grade, Length, Fall, Lifts, Open}
+
+The attributes Grade, Length, Fall, Lifts and Open can be considered functionally dependant on PisteName since they make no sense outside of the context of a Piste. None of these attributes on it's own is enough to identify a Piste. However, a PisteName is sufficient to derive any or all of these attributes. \\ 
+
+
+\textbf{LiftName \begin{math}\rightarrow\end{math} Type, Summit, Rise, LiftLength, Operating}
+ 
+Type, Summit, Rise, LiftLength and Operating can all be considered to be functionally dependant on LiftName. Similar to the situation with PistName and it's dependant attributes, LiftName can be used to resolve any of these attributes where as the attributes themselves in isolation cannot identify a Lift, or indeed any other attribute. 
+
+%\section{Normalization}
+
+\section{First Normal Form}
+Having identified functional dependencies and chosen a primary key the structure can be normalised.
+
+In order to bring the structure to first normal form, repeating groups must be removed from the relation as shown in the un-normalized structure in section 2 of this document. The primary key of the un-normalized structure is included in the key of the new relation. Doing so results in the following relations:
+
+\textbf{Piste}(\underline{PisteName}, Grade, Length, Fall, Open) \\
+\textbf{Lift}(\underline{PisteName*, LiftName}, Type, Summit, Rise, LiftLength, Operating)
+
+Because of the functional dependency : \textbf{PisteName \begin{math}\rightarrow\end{math} Grade, Length, Fall, Lifts, Open}, all attributes in the Piste relation are derived via the PisteName.
+Similarly, all attributes in Lift are derived via the LiftName, since \textbf{LiftName \begin{math}\rightarrow\end{math} Type, Summit, Rise, LiftLength, Operating}.
+
  
 
 
+\section{Second normal Form}
+In order to bring this representation to second normal form we must remove any many-to-many relationship and represent this via a separate relation. The resulting relations are: 
 
+\textbf{Piste}(\underline{PisteName}, Grade, Length, Fall, Open) \\
+\textbf{Lift}(\underline{LiftName}, Type, Summit, Rise, LiftLength, Operating) \\
+\textbf{Serves}(\underline{PisteName*, LiftName*})
 
-
-
-\section{Normalization}
-\subsection{First Normal Form}
-\subsection{Second normal Form}
-\subsection{Third normal Form}
+\section{Third normal Form}
 
 \section{PostgreSQL Implementation}
 
