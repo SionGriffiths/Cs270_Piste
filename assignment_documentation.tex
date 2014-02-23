@@ -32,15 +32,15 @@
 \lstset{showstringspaces=false,
 		language=SQL,
         numbers=left,
-        frame=single,
+        %frame=single,
         backgroundcolor=\color[RGB]{234,237,230},
         numberstyle=\tiny,
         basicstyle={\footnotesize\ttfamily\bfseries},
-        frameround=tttt,
+        %frameround=tttt,
         breaklines=true,
-        keywordstyle=\color{mauve},
+        keywordstyle=\color{dkblu},
         commentstyle=\color[RGB]{143,89,2},
-        stringstyle=\color{dkred},
+        stringstyle=\color{dkgreen},
         identifierstyle=\color[RGB]{0,0,0},
 		morekeywords={CreateMbrCache,mbr,FilterMbrWithin,MbrMinX,MbrMinY,MbrMaxX,MbrMaxY,Within,group_concat}        
         }
@@ -65,9 +65,11 @@
 
 Studying the dataset provided in the assignment brief, I have determined the un-normalized structure of the database (along with all repeating groups) to be as follows:
  
-\textbf{PistesAndLifts}(\underline{PisteName}, Grade, Length, Fall, Lifts, Open, LiftName, Type, Summit, Rise, LiftLength, Operating) \\ \\
+\textbf{Piste}(\underline{PisteName}, Grade, Length, Fall, Lifts, Open, LiftName, Type, Summit, Rise, LiftLength, Operating) \\ \\
 (LiftName, Type, Summit, Rise, LiftLength, Operating) repeats for each lift
  \newline
+
+The data is separated out into two tables which implies some logical structuring has already been carried out. I have determined that Piste if the main entity of interest and all other attributes are in some way derivative from it. 
 
 \subsection{Candidate Keys}
 The following candidate keys have been identified: 
@@ -104,7 +106,7 @@ The attributes Grade, Length, Fall, Lifts and Open can be considered functionall
  
 Type, Summit, Rise, LiftLength and Operating can all be considered to be functionally dependant on LiftName. Similar to the situation with PistName and it's dependant attributes, LiftName can be used to resolve any of these attributes where as the attributes themselves in isolation cannot identify a Lift, or indeed any other attribute. 
 
-%\section{Normalization}
+\section{Assumptions}
 
 \section{First Normal Form}
 Having identified functional dependencies and chosen a primary key the structure can be normalised.
@@ -112,27 +114,55 @@ Having identified functional dependencies and chosen a primary key the structure
 In order to bring the structure to first normal form, repeating groups must be removed from the relation as shown in the un-normalized structure in section 2 of this document. The primary key of the un-normalized structure is included in the key of the new relation. Doing so results in the following relations:
 
 \textbf{Piste}(\underline{PisteName}, Grade, Length, Fall, Open) \\
-\textbf{Lift}(\underline{PisteName*, LiftName}, Type, Summit, Rise, LiftLength, Operating)
+\textbf{Lift}(\underline{LiftName, PisteName*}, Type, Summit, Rise, LiftLength, Operating)
 
 Because of the functional dependency : \textbf{PisteName \begin{math}\rightarrow\end{math} Grade, Length, Fall, Lifts, Open}, all attributes in the Piste relation are derived via the PisteName.
 Similarly, all attributes in Lift are derived via the LiftName, since \textbf{LiftName \begin{math}\rightarrow\end{math} Type, Summit, Rise, LiftLength, Operating}.
+The structure is fairly close to the functional dependencies that were specified in the earlier section, but further work is required.
 
  
 
 
 \section{Second normal Form}
-In order to bring this representation to second normal form we must remove any many-to-many relationship and represent this via a separate relation. The resulting relations are: 
+In order to bring this representation to second normal form we must ensure that no attributes are partially dependant on parts of a composite primary key. The lift relation in the First Normal Form section above has it's attributes only dependant on the LiftName attribute and not on the PisteName foreign key that also makes up it's key. 
+
+PisteName has to be removed from the Lift relation and in order to represent the many-to-many relationship between Pistes and Lifts, a new table is required. This new table will hold only a foreign key reference to both Lift and Piste via their primary keys. This results in the following relations: 
 
 \textbf{Piste}(\underline{PisteName}, Grade, Length, Fall, Open) \\
 \textbf{Lift}(\underline{LiftName}, Type, Summit, Rise, LiftLength, Operating) \\
 \textbf{Serves}(\underline{PisteName*, LiftName*})
 
-\section{Third normal Form}
+The structures are now fully compliant with the functional dependencies that were outlined in the previous sections.
 
+\section{Third normal Form}
+In order for a representation to be in third normal form, it must conform to first and second normal form and also transitive dependencies must be removed. No attributes should depend on anything but the primary key.
+
+With the dataset used in this particular example third normal form requires no extra steps from second normal form since there are no transitive dependencies. 
+\newpage  
 \section{PostgreSQL Implementation}
 
 \begin{lstlisting}[breaklines=true]
-  SELECT username FROM members WHERE username = '$inputuser' AND user_password = '$input_password' LIMIT 1;
+ CREATE TYPE difficulty as ENUM('Easy', 'Medium', 'Hard', 'Difficult');
+ 
+ CREATE TABLE piste(
+ 	piste_name varchar(50) PRIMARY KEY,
+ 	grade difficulty,
+ 	length decimal(4,2),
+ 	fall smallint,
+ 	open boolean
+ );
+ 
+ CREATE TYPE type_of_lift as ENUM('Gondola', 'Chair', 'Tow');
+ 
+ CREATE TABLE lift(
+ 	lift_name varchar(50) PRIMARY KEY,
+ 	lift_type type_of_lift,
+ 	summit smallint,
+ 	rise smallint,
+ 	lift_length smallint,
+ 	operating boolean
+ );
+ 
 \end{lstlisting}
 
 \end{document}
