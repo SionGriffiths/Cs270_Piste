@@ -60,6 +60,8 @@
 
 
 \section{Introduction}
+This document provides an overview of my solution for the CS270 Ski Lifts and Pistes Assignment.
+The problem given in the assignment brief is to analyse a set of data, normalise this data to a form suitable to be implemented in a relational database system, and provide a PostgreSQL implementation of this dataset.   
 
 \section{Un-Normalized Structures}
 
@@ -69,7 +71,7 @@ Studying the dataset provided in the assignment brief, I have determined the un-
 (LiftName, Type, Summit, Rise, LiftLength, Operating) repeats for each lift
  \newline
 
-The data is separated out into two tables which implies some logical structuring has already been carried out. I have determined that Piste if the main entity of interest and all other attributes are in some way derivative from it. 
+The data is separated out into two tables which implies that some logical structuring has already been carried out. I have determined that Piste if the main entity of interest and all other attributes are in some way derivable from it. 
 
 \subsection{Candidate Keys}
 The following candidate keys have been identified: 
@@ -106,7 +108,6 @@ The attributes Grade, Length, Fall, Lifts and Open can be considered functionall
  
 Type, Summit, Rise, LiftLength and Operating can all be considered to be functionally dependant on LiftName. Similar to the situation with PistName and it's dependant attributes, LiftName can be used to resolve any of these attributes where as the attributes themselves in isolation cannot identify a Lift, or indeed any other attribute. 
 
-\section{Assumptions}
 
 \section{First Normal Form}
 Having identified functional dependencies and chosen a primary key the structure can be normalised.
@@ -141,28 +142,45 @@ With the dataset used in this particular example third normal form requires no e
 \newpage  
 \section{PostgreSQL Implementation}
 
-\begin{lstlisting}[breaklines=true]
- CREATE TYPE difficulty as ENUM('Easy', 'Medium', 'Hard', 'Difficult');
+\subsection{Attribute Types}
+\includegraphics[width=0.9\textwidth]{images/types}
+\subsection{SQL}
+Implementing the database on the departmental computer system was achieved by running the following command for each of the files specified below. The SQL scripts themselves were uploaded to my university filestore. :
  
- CREATE TABLE piste(
- 	piste_name varchar(50) PRIMARY KEY,
- 	grade difficulty,
- 	length decimal(4,2),
- 	fall smallint,
- 	open boolean
- );
- 
- CREATE TYPE type_of_lift as ENUM('Gondola', 'Chair', 'Tow');
- 
- CREATE TABLE lift(
- 	lift_name varchar(50) PRIMARY KEY,
- 	lift_type type_of_lift,
- 	summit smallint,
- 	rise smallint,
- 	lift_length smallint,
- 	operating boolean
- );
- 
-\end{lstlisting}
 
+\begin{verbatim}
+psql -h db.dcs.aber.ac.uk -U sig2 -d cs27020_13_14 < sql/filename.sql
+\end{verbatim}
+
+\subsection{Create Tables}
+\lstinputlisting[breaklines=true]{SQL/create.sql}
+\FloatBarrier
+
+
+
+\newpage
+\subsection{Inset Data}
+\lstinputlisting[breaklines=true]{SQL/insert.sql}
+
+\subsection{Queries}
+\lstinputlisting[breaklines=true]{SQL/query.sql}
+
+\subsection{Drop Tables}
+\lstinputlisting[breaklines=true]{SQL/drop.sql}
+\newpage
+\subsection{Output}
+
+The following screenshots show the output of running the SQL scripts detailed above.
+\subsubsection{Create.sql}
+\FloatBarrier
+\includegraphics[width=0.9\textwidth]{images/create}\\
+\subsubsection{Insert.sql}
+\FloatBarrier
+\includegraphics[width=0.9\textwidth]{images/insert}\\
+\subsubsection{Query.sql}
+\FloatBarrier
+\includegraphics[width=0.9\textwidth]{images/query}\\
+\subsubsection{Drop.sql}
+\FloatBarrier
+\includegraphics[width=0.9\textwidth]{images/drop}
 \end{document}

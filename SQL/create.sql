@@ -1,6 +1,3 @@
---psql -h db.dcs.aber.ac.uk -U sig2 -d cs27020_13_14 < sql/create.sql
-
-
 CREATE TYPE difficulty as ENUM('Easy', 'Medium', 'Hard', 'Difficult');
 
 CREATE TABLE piste(

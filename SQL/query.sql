@@ -1,11 +1,8 @@
-
-
 SELECT lift_name FROM lift WHERE operating = TRUE;
 
 SELECT lift_name FROM serves WHERE piste_name = 'Almabfahrt' ;
 
 SELECT piste_name FROM serves WHERE lift_name = 'Schoenjochbahn II';
-
 
 SELECT p.piste_name, l.lift_name 
 FROM piste p
