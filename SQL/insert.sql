@@ -16,7 +16,7 @@ INSERT INTO piste (piste_name, grade, length, fall, open) VALUES
 ('Almabfahrt' , 'Medium'  ,'4' , '370' ,'FALSE');
 
 
-INSERT INTO lift (lift_name, lift_type, summit, rise, lift_length, operating)
+INSERT INTO lift (lift_name, lift_type, summit, rise, lift_length, operating) VALUES
 ('Schoenjochbahn I', 'Gondola', '1920', '440', '1600', 'TRUE'),
 ('ESL-Fiss-Moeseralm' , 'Chair' , '1850' , '400' ,  '1700' , 'FALSE'),
 ('ESL-Ladis-Fiss' , 'Chair' , '1510' , '290' , '2700' , 'FALSE'),
@@ -31,9 +31,9 @@ INSERT INTO lift (lift_name, lift_type, summit, rise, lift_length, operating)
 ('Schoengamplift' ,'Tow' , '2509' , '420' , '1340' , 'TRUE'),
 ('Almlift'  , 'Tow' , '2250' , '370' , '1180' , 'FALSE');
 
-INSERT INTO serves (piste_name, lift_name)
+INSERT INTO serves (piste_name, lift_name) VALUES
 ('Zwischenholzabfahrt', 'Schoenjochbahn I'),
-('Zwischenholzabfahrt', 'ESL-Fiss-Moeseralm'),(
+('Zwischenholzabfahrt', 'ESL-Fiss-Moeseralm'),
 ('Moeseralmabfahrt', 'ESL-Fiss-Moeseralm'),
 ('Moeseralmabfahrt', 'Rastlift'),
 ('Schoenjochabfahrt', 'Schoenjochbahn II'),
@@ -43,4 +43,18 @@ INSERT INTO serves (piste_name, lift_name)
 ('Sattelkopf-Suedabfahrt', 'Sattelkopflift'),
 ('Sattelkopf-Nordabfahrt' , 'Sattelkopflift'),
 ('Moeserabfahrt' , 'Moeserlift'),
-('Wonneabfahrt'  , 
+('Wonneabfahrt'  , 'Schoenjochbahn I'),
+('Wonneabfahrt'  , 'Wonnelift'),
+('Rastabfahrt' , 'Rastlift'),
+('Waldabfahrt', 'Waldlift' ),
+('Ladisabfahrt' , 'ESL-Ladis-Fiss' ),
+('Verbindungsabfahrt' ,  'Schoenjochbahn I'),
+('Verbindungsabfahrt' , 'Wonnelift'),
+('Plazoerabfahrt' , 'Schoenjochbahn II'),
+('Plazoerabfahrt' , 'Plazoerlift' ),
+('Schoengampabfahrt', 'Schoengamplift'),
+('Schoenjochpiste' , 'Schoenjochbahn II'),
+('Schoenjochpiste' ,  'Plazoerlift' ),
+('Almabfahrt' ,  'Schoenjochbahn II'),
+('Almabfahrt' ,  'Plazoerlift' ),
+('Almabfahrt' ,  'Almlift');
